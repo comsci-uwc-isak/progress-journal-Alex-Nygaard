@@ -4,6 +4,7 @@
 
 playing=true
 
+#Starting the while loop of the game
 while [[ $playing ]]
 do
     (( moneyDoor = ( $RANDOM % 3 ) + 1 ))
@@ -35,7 +36,7 @@ do
         playing=$false
         break
 
-    # 1st scenario
+    # 1st scenario if not picked right on first try
     elif [[ $notPicked1 -eq $moneyDoor ]]; then
         echo "You picked door number $pickedDoor"
         echo "Door number $notPicked2 is empty"
@@ -53,19 +54,24 @@ do
         echo -n "and '$pickedDoor' to stay: "
         read newChoice
     
-    
+    #Else 
     else
         echo "Error. Wrong input."
         echo "Exiting program"
         playing=$false
+        break
 
     fi    
 
+    # Checks the new selection
 
+    # User guesses right
     if [[ $newChoice -eq $moneyDoor ]]; then
         echo "You guessed correct!"
         echo "Exiting program"
         playing=$false
+    
+    # User guesses wrong
     elif [[ $newChoice -eq $notpicked1 ]]; then
         echo "Wrong choice"
         echo "Exiting program"
@@ -74,10 +80,8 @@ do
         echo "Error. Wrong input."
         echo "Exiting program"
         playing=$false
+        break
     fi
-
-
-
 
 done
 
